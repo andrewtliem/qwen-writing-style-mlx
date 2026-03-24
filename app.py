@@ -15,7 +15,7 @@ BASE_MODEL = os.getenv("MLX_BASE_MODEL", "mlx-community/Qwen2.5-0.5B-Instruct-4b
 # This should point to a local adapter directory on the current machine.
 ADAPTER_PATH = os.getenv(
     "MLX_ADAPTER_PATH",
-    "/Users/andrewtannyliem/Documents/qwen-lora/qwen25_v9",
+    "./qwen25_v9",
 )
 MLX_BIN = os.getenv("MLX_BIN", "mlx_lm.generate")
 
