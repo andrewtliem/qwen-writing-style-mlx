@@ -34,9 +34,7 @@ qwen25_v7_final/
 qwen25_v8/
 
 # Local datasets / experiments
-data/
 data_pc/
-newData/
 
 # Backup / duplicate files
 *.bak
