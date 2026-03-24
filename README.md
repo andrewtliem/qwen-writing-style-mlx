@@ -1,4 +1,4 @@
-# 🎓 qwen-writing-style-mlx
+# 🎓 academic-paraphraser-mlx
 
 Fine-tune a small Qwen model with MLX so it can paraphrase technical writing in your own academic style.
 
@@ -31,7 +31,7 @@ By the end of this tutorial, you will have:
 ## 🗂️ Project Structure
 
 ```text
-qwen-writing-style-mlx/
+academic-paraphraser-mlx/
 ├── README.md
 ├── requirements.txt
 ├── app.py
