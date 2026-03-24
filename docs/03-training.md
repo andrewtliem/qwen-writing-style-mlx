@@ -1,8 +1,10 @@
-# 03 Training
+# ⚙️ 03 Training
 
-This repo follows an MLX LoRA workflow on Apple Silicon.
+## Training Goal
 
-## Environment
+The goal of training is not to create a broad assistant. It is to create a focused academic paraphrasing model that behaves consistently on your writing tasks.
+
+## 🛠️ Environment
 
 ```bash
 python3 -m venv .venv
@@ -11,7 +13,7 @@ pip install -r requirements.txt
 pip install mlx-lm
 ```
 
-## Base Model
+## 🤖 Base Model
 
 Example base model:
 
@@ -19,9 +21,13 @@ Example base model:
 mlx-community/Qwen2.5-0.5B-Instruct-4bit
 ```
 
-This model choice was not arbitrary. Earlier experiments with smaller base-style models were less stable, while the instruct variant gave the first usable rewrite behavior.
+This choice was based on experiment results, not preference alone.
 
-## Training Command
+- earlier small base-style models were less stable
+- the instruct variant produced the first usable rewrite behavior
+- once model stability improved, dataset quality became the main factor
+
+## ▶️ Training Command
 
 ```bash
 mlx_lm.lora \
@@ -37,15 +43,25 @@ mlx_lm.lora \
   --max-seq-length 512
 ```
 
-## Notes
+## 📌 Practical Notes
 
-- `--data ./data` points to the dataset folder used in this tutorial.
-- `./qwen25_v8` matches the adapter path already referenced by the app.
-- If your local `mlx-lm` version uses a different training entrypoint, keep the same arguments and adapt the command name only.
+- `--data ./data` points to the dataset folder used in this tutorial
+- `./qwen25_v8` is the adapter path referenced by the app
+- if your `mlx-lm` version uses a different training entrypoint, keep the arguments and adjust only the command name
 
-## Training Lessons
+## 🧠 How to Think About Training
 
 - keep the task narrow and consistent
 - do not expect hyperparameter changes to rescue a weak dataset
-- validation behavior matters more than the lowest possible train loss
+- validation behavior matters more than the lowest possible training loss
 - the best checkpoint may appear before the most overfit checkpoint
+
+## ⚠️ Common Mistake
+
+A lower loss curve can look impressive while the output quality quietly gets worse.
+
+For this use case, the real question is:
+
+Does the model paraphrase in your academic style while preserving meaning?
+
+That question matters more than a single training metric.

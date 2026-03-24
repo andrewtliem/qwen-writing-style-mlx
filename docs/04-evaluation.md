@@ -1,46 +1,59 @@
-# 04 Evaluation
+# 🔍 04 Evaluation
 
-The evaluation target is not factual knowledge. It is style quality with meaning preservation.
+## What You Should Evaluate
 
-## Compare
+This tutorial is not about factual QA accuracy. It is about writing behavior.
 
-Compare:
+The model should:
+
+- sound more academic
+- reduce generic wording
+- preserve technical meaning
+- stay on topic
+- remain stable across similar prompts
+
+## ⚖️ Compare the Right Things
+
+Always compare:
 
 - base model output
-- fine-tuned adapter output
+- fine-tuned model output
 
-Check for:
+Use the same prompts for both. Otherwise, the comparison is not useful.
 
-- more technical tone
-- less generic wording
-- preserved meaning
-- more consistent EPON-style phrasing
-- fewer unstable or off-topic completions
+## ✅ Practical Evaluation Flow
 
-## Practical Method
-
-1. Use held-out inputs from [`data/test.jsonl`](/Users/andrewtannyliem/Documents/qwen-lora/data/test.jsonl).
+1. Take held-out inputs from [`data/test.jsonl`](/Users/andrewtannyliem/Documents/qwen-lora/data/test.jsonl).
 2. Generate outputs with the base model only.
 3. Generate outputs again with the adapter enabled.
-4. Record examples in [`examples/base_vs_finetuned.md`](/Users/andrewtannyliem/Documents/qwen-lora/examples/base_vs_finetuned.md).
+4. Record the results in [`examples/base_vs_finetuned.md`](/Users/andrewtannyliem/Documents/qwen-lora/examples/base_vs_finetuned.md).
 
-## Main Evaluation Lesson
+## 🧠 Main Lesson
 
-Lower train loss is not automatically better.
+Lower training loss is not automatically better.
 
-One of the main lessons from the project is that the best qualitative behavior appeared before deep overfitting. A later checkpoint can have lower loss while producing less reliable rewrites.
+One of the biggest lessons from this project was that the best qualitative behavior appeared before deep overfitting. A later checkpoint can have lower loss while producing less reliable paraphrases.
 
 That means checkpoint selection should be based on side-by-side output review, not only training metrics.
 
-## Failure Signs
+## 🚩 Failure Signs
 
 - topic drift
 - unrelated claims
-- added details not present in the source
-- no visible style improvement
+- details added that were not present in the input
+- little or no style improvement
+- polished wording that still changes the meaning
 
-## What Did Not Work
+## ❌ What Did Not Work
 
 - assuming lower loss always meant better style transfer
 - evaluating only on training metrics
-- ignoring small topic shifts because the output sounded academic
+- ignoring small meaning shifts because the output sounded more academic
+
+## 👩‍🏫 Academic Review Tip
+
+If the target user is a lecturer or researcher, one of the best tests is simple:
+
+Would you be comfortable placing the rewritten sentence into your own notes, slides, or paper draft after a light review?
+
+If the answer is no, the model is not ready yet.

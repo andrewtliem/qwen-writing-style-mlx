@@ -1,40 +1,45 @@
-# 01 Overview
+# 🎯 01 Overview
 
-This project fine-tunes a Qwen instruct model with MLX to learn a writing style rather than teach new knowledge.
+## What You Are Building
 
-The real goal is not "teach EPON." The goal is to teach a Qwen model to rewrite technical sentences in your own academic writing style.
+This project fine-tunes a Qwen instruct model with MLX so it can paraphrase technical writing in your own academic style.
 
-In this repo, the target task is:
+The goal is not to teach the model everything about EPON. The goal is narrower and more practical:
 
-- take technical EPON text as input
-- rewrite it in a more formal academic style
-- preserve the original technical meaning
+- give it technical text
+- ask it to rewrite that text in a formal academic voice
+- preserve the original meaning
 
-That framing matters because it changes the whole pipeline:
+That framing is important because it changes how you design the dataset, how you evaluate the model, and how you deploy it.
 
-- the dataset should contain rewrite pairs, not fact-heavy QA
-- the evaluation should focus on style quality and meaning preservation
-- the production API should use a narrow rewrite prompt instead of a generic chat interface
+## 👩‍🏫 Why This Matters for Lecturers
 
-Core components:
+Many lecturers and researchers do not want a generic AI assistant. They want a writing tool that helps them:
 
-- [`app.py`](/Users/andrewtannyliem/Documents/qwen-lora/app.py): FastAPI wrapper around `mlx_lm.generate`
-- [`frontend/rewrite_frontend.html`](/Users/andrewtannyliem/Documents/qwen-lora/frontend/rewrite_frontend.html): browser playground
-- [`data/train.jsonl`](/Users/andrewtannyliem/Documents/qwen-lora/data/train.jsonl): training split
-- [`data/valid.jsonl`](/Users/andrewtannyliem/Documents/qwen-lora/data/valid.jsonl): validation split
-- [`data/test.jsonl`](/Users/andrewtannyliem/Documents/qwen-lora/data/test.jsonl): test split
+- revise paragraphs without losing their academic tone
+- paraphrase lecture notes and research drafts
+- make wording more formal and publication-ready
+- stay stylistically consistent across documents
 
-The workflow is simple:
+This tutorial is built around that use case.
 
-1. Build rewrite-style examples.
-2. Train a LoRA adapter with MLX.
-3. Compare the base model against the fine-tuned model.
-4. Serve the adapter locally through FastAPI.
-5. Test the model from the browser UI or API.
+## 🧱 Main Components
 
-## Prerequisites
+- [`app.py`](/Users/andrewtannyliem/Documents/qwen-lora/app.py) — FastAPI wrapper around `mlx_lm.generate`
+- [`frontend/rewrite_frontend.html`](/Users/andrewtannyliem/Documents/qwen-lora/frontend/rewrite_frontend.html) — local browser playground
+- [`data/train.jsonl`](/Users/andrewtannyliem/Documents/qwen-lora/data/train.jsonl) — training split
+- [`data/valid.jsonl`](/Users/andrewtannyliem/Documents/qwen-lora/data/valid.jsonl) — validation split
+- [`data/test.jsonl`](/Users/andrewtannyliem/Documents/qwen-lora/data/test.jsonl) — test split
 
-This workflow assumes:
+## 🔄 Workflow at a Glance
+
+1. Build rewrite-style training examples.
+2. Fine-tune a Qwen instruct model with MLX LoRA.
+3. Compare the base model and the fine-tuned model on the same prompts.
+4. Serve the adapter through a small local API.
+5. Test it from the browser with real academic sentences.
+
+## ✅ Prerequisites
 
 - Apple Silicon Mac
 - Python virtual environment
@@ -42,27 +47,27 @@ This workflow assumes:
 - access to the target model on Hugging Face
 - a small instruct model already available in MLX format
 
-The model used in this repo is:
+The model used in this tutorial is:
 
 ```text
 mlx-community/Qwen2.5-0.5B-Instruct-4bit
 ```
 
-## Why an Instruct Model
+## 🧠 Why an Instruct Model
 
-One of the most important findings from the project is that model choice mattered early.
+One of the biggest practical lessons from the project was model choice.
 
 - small base models were unstable
 - the instruct model was the first option that produced usable rewrite behavior
-- once the base model behavior became reasonable, dataset quality became the next bottleneck
+- after that, dataset quality became the main bottleneck
 
 That is why this tutorial is centered on a Qwen instruct model rather than a base model.
 
-## What Did Not Work
+## ⚠️ What Did Not Work
 
-This tutorial is more useful if the failures are explicit.
+The tutorial is more useful when the failures are explicit.
 
 - tiny base models produced unstable outputs
 - generic QA-style data did not transfer writing style well
-- pushing training loss too low led to overfitting instead of better rewrites
-- deployment paths that were too generic did not fit the narrow rewrite use case as cleanly as a custom wrapper
+- very low training loss did not automatically mean better results
+- overly generic deployment paths did not match the narrow rewrite use case as cleanly as a custom wrapper
