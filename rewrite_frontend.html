@@ -3,53 +3,181 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Andrew EPON Rewrite</title>
+  <title>Qwen LoRA Fine-Tune Tutorial</title>
   <style>
     :root {
-      --bg: #0b1020;
-      --panel: #121933;
-      --panel-2: #182142;
-      --text: #e9eefc;
-      --muted: #aab5d6;
-      --accent: #6ea8fe;
-      --border: #2a3563;
-      --ok: #7ee787;
+      --bg: #f2ede2;
+      --paper: rgba(255, 251, 244, 0.88);
+      --panel: #fcf8ef;
+      --panel-2: #f3ecdd;
+      --ink: #1e1b18;
+      --muted: #665f55;
+      --accent: #a64b2a;
+      --accent-2: #355c4d;
+      --border: rgba(57, 45, 29, 0.14);
+      --ok: #355c4d;
+      --shadow: 0 20px 60px rgba(77, 58, 33, 0.15);
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: linear-gradient(180deg, #0b1020 0%, #0f1630 100%);
-      color: var(--text);
+      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      background:
+        radial-gradient(circle at top left, rgba(166, 75, 42, 0.18), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(53, 92, 77, 0.18), transparent 32%),
+        linear-gradient(180deg, #efe7d7 0%, #f6f1e7 52%, #ece3d0 100%);
+      color: var(--ink);
+      min-height: 100vh;
     }
     .wrap {
-      max-width: 1100px;
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 32px 20px 48px;
+      padding: 32px 20px 56px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .hero-card,
+    .card {
+      background: var(--paper);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+    .hero-card {
+      padding: 28px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(166, 75, 42, 0.08);
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
     }
     h1 {
-      margin: 0 0 8px;
-      font-size: 32px;
+      margin: 0 0 10px;
+      font-size: clamp(2.2rem, 4vw, 4.2rem);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
     }
     .sub {
       color: var(--muted);
-      margin-bottom: 24px;
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 0 0 20px;
+      max-width: 44rem;
     }
-    .card {
-      background: rgba(18, 25, 51, 0.92);
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .meta-box {
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 18px;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.4);
+    }
+    .meta-box strong {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .meta-box span {
+      display: block;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .steps {
+      display: grid;
+      gap: 12px;
+    }
+    .step {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.42);
+      border: 1px solid var(--border);
+    }
+    .step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 18px;
+      color: #fff7ef;
+      background: linear-gradient(135deg, var(--accent), #c86b49);
+    }
+    .step h2 {
+      font-size: 18px;
+      margin: 2px 0 6px;
+    }
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .mono {
+      display: block;
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #201b17;
+      color: #f8f1e8;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 13px;
+      overflow-x: auto;
+    }
+    .card {
+      padding: 22px;
+      margin-top: 18px;
+    }
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: end;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .card-head h2 {
+      margin: 0 0 6px;
+      font-size: 28px;
+    }
+    .card-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 44rem;
+      line-height: 1.5;
     }
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 18px;
     }
     label {
       display: block;
-      font-size: 14px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       color: var(--muted);
       margin-bottom: 8px;
     }
@@ -57,14 +185,18 @@
       width: 100%;
       border: 1px solid var(--border);
       background: var(--panel-2);
-      color: var(--text);
-      border-radius: 12px;
+      color: var(--ink);
+      border-radius: 16px;
       padding: 12px 14px;
       font-size: 15px;
       outline: none;
     }
+    textarea:focus, input:focus {
+      border-color: rgba(166, 75, 42, 0.5);
+      box-shadow: 0 0 0 4px rgba(166, 75, 42, 0.08);
+    }
     textarea {
-      min-height: 220px;
+      min-height: 240px;
       resize: vertical;
       line-height: 1.5;
     }
@@ -75,14 +207,15 @@
       margin: 16px 0;
     }
     button {
-      background: var(--accent);
-      color: #081224;
+      background: linear-gradient(135deg, var(--accent), #cc7755);
+      color: #fff8f2;
       border: 0;
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 12px 16px;
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
+      box-shadow: 0 10px 22px rgba(166, 75, 42, 0.22);
     }
     button:disabled {
       opacity: 0.65;
@@ -97,8 +230,9 @@
     }
     .ghost {
       background: transparent;
-      color: var(--text);
+      color: var(--ink);
       border: 1px solid var(--border);
+      box-shadow: none;
     }
     .status {
       color: var(--muted);
@@ -106,21 +240,109 @@
       min-height: 20px;
     }
     .ok { color: var(--ok); }
+    .samples {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .sample {
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.42);
+      padding: 14px;
+    }
+    .sample strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    .sample p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+    .sample button {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent-2), #4a7a68);
+      box-shadow: 0 10px 22px rgba(53, 92, 77, 0.18);
+    }
     @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .meta { grid-template-columns: 1fr; }
       .grid { grid-template-columns: 1fr; }
       .controls { grid-template-columns: 1fr 1fr; }
+      .samples { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
       .controls { grid-template-columns: 1fr; }
+      .hero-card,
+      .card { padding: 18px; }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Andrew EPON Rewrite</h1>
-    <div class="sub">Simple frontend for your local FastAPI rewrite service.</div>
+    <section class="hero">
+      <div class="hero-card">
+        <div class="eyebrow">Local Model Tutorial</div>
+        <h1>Qwen LoRA Fine-Tune Tutorial</h1>
+        <p class="sub">
+          This page turns the repo into a guided demo: run the FastAPI service, send text to your LoRA adapter, and compare how the fine-tuned model rewrites technical prose.
+        </p>
+        <div class="meta">
+          <div class="meta-box">
+            <strong>Base API</strong>
+            <span>`POST /rewrite` on `http://127.0.0.1:8000`</span>
+          </div>
+          <div class="meta-box">
+            <strong>Use Case</strong>
+            <span>Academic-style rewriting with a local Qwen adapter</span>
+          </div>
+          <div class="meta-box">
+            <strong>Back End</strong>
+            <span>FastAPI + `mlx_lm.generate` + adapter path from env vars</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div>
+              <h2>Start the API</h2>
+              <p>Run the local server so this page can call your fine-tuned model.</p>
+              <code class="mono">uvicorn app:app --reload</code>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div>
+              <h2>Keep your adapter path correct</h2>
+              <p>The app reads `MLX_ADAPTER_PATH` and `MLX_BASE_MODEL` from the environment. Change them when you switch checkpoints.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div>
+              <h2>Paste text and compare the rewrite</h2>
+              <p>Use the playground below to see how the fine-tune changes tone, precision, and phrasing.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <div class="card">
+      <div class="card-head">
+        <div>
+          <h2>Tutorial Playground</h2>
+          <p>Try the fine-tuned adapter with your own text, then reuse the output as a second-pass input if you want a tighter rewrite.</p>
+        </div>
+      </div>
+
       <div class="grid">
         <div>
           <label for="inputText">Original text</label>
@@ -157,6 +379,24 @@
         <button id="swapBtn" class="ghost" type="button">Use output as input</button>
         <span id="status" class="status"></span>
       </div>
+
+      <div class="samples">
+        <div class="sample">
+          <strong>Sample 1</strong>
+          <p>Baseline EPON systems often suffer from queue growth when bursty upstream traffic arrives from multiple ONUs.</p>
+          <button type="button" data-sample="Baseline EPON systems often suffer from queue growth when bursty upstream traffic arrives from multiple ONUs.">Load sample</button>
+        </div>
+        <div class="sample">
+          <strong>Sample 2</strong>
+          <p>This scheduling method lowers delay and improves channel usage, especially when the network is heavily loaded.</p>
+          <button type="button" data-sample="This scheduling method lowers delay and improves channel usage, especially when the network is heavily loaded.">Load sample</button>
+        </div>
+        <div class="sample">
+          <strong>Sample 3</strong>
+          <p>The proposed mechanism coordinates report messages and grant allocation to reduce idle slots in the upstream cycle.</p>
+          <button type="button" data-sample="The proposed mechanism coordinates report messages and grant allocation to reduce idle slots in the upstream cycle.">Load sample</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -172,6 +412,7 @@
     const copyBtn = document.getElementById('copyBtn');
     const swapBtn = document.getElementById('swapBtn');
     const status = document.getElementById('status');
+    const sampleButtons = document.querySelectorAll('[data-sample]');
 
     async function rewrite() {
       const text = inputText.value.trim();
@@ -228,6 +469,14 @@
       outputText.value = '';
       status.textContent = 'Output moved to input.';
       status.className = 'status ok';
+    });
+
+    sampleButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        inputText.value = button.dataset.sample || '';
+        status.textContent = 'Sample loaded.';
+        status.className = 'status ok';
+      });
     });
   </script>
 </body>

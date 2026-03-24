@@ -19,7 +19,7 @@ ADAPTER_PATH = os.getenv(
 MLX_BIN = os.getenv("MLX_BIN", "mlx_lm.generate")
 
 DEFAULT_INSTRUCTION = (
-    "Rewrite the following in Andrew  paper style. "
+    "Rewrite the following in a formal EPON research paper style. "
 )
 
 MAX_INPUT_CHARS = int(os.getenv("MAX_INPUT_CHARS", "4000"))
@@ -30,7 +30,7 @@ DEFAULT_TOP_P = float(os.getenv("DEFAULT_TOP_P", "0.9"))
 # =============================
 # App Init
 # =============================
-app = FastAPI(title="Andrew EPON Rewrite API", version="1.0.0")
+app = FastAPI(title="Qwen LoRA Fine-Tune Tutorial API", version="1.0.0")
 
 # =============================
 # CORS (IMPORTANT FIX)
@@ -138,6 +138,7 @@ def rewrite(req: RewriteRequest):
 @app.get("/")
 def root():
     return {
-        "message": "Andrew EPON Rewrite API is running",
+        "message": "Qwen LoRA Fine-Tune Tutorial API is running",
+        "tutorial": "Local FastAPI wrapper for a Qwen LoRA adapter",
         "endpoints": ["/health", "/rewrite"],
     }
