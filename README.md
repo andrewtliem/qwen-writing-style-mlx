@@ -1,8 +1,8 @@
 # 🎓 academic-paraphraser-mlx
 
-Fine-tune a small Qwen model with MLX so it can paraphrase technical writing in your own academic style.
+Fine-tune a small Qwen model with MLX so it can rewrite technical and academic text in your own writing style.
 
-This project is designed for lecturers, researchers, and academic writers who want a narrow writing assistant, not a general chatbot. The goal is simple: give the model a sentence or paragraph, and have it rewrite the text in a more formal academic voice while preserving the original meaning.
+This project is built for lecturers, researchers, and academic writers who want a focused writing assistant rather than a general chatbot. The goal is to make the model write more like you: your tone, your academic phrasing, and your way of presenting technical ideas, while still preserving the original meaning of the source text.
 
 ## ✨ Why This Project Is Useful
 
