@@ -12,6 +12,7 @@ from pydantic import BaseModel, Field
 # Configuration
 # =============================
 BASE_MODEL = os.getenv("MLX_BASE_MODEL", "mlx-community/Qwen2.5-0.5B-Instruct-4bit")
+# This should point to a local adapter directory on the current machine.
 ADAPTER_PATH = os.getenv(
     "MLX_ADAPTER_PATH",
     "/Users/andrewtannyliem/Documents/qwen-lora/qwen25_v9",
