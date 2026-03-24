@@ -413,6 +413,29 @@
     const swapBtn = document.getElementById('swapBtn');
     const status = document.getElementById('status');
     const sampleButtons = document.querySelectorAll('[data-sample]');
+    const demoSample = 'Ethernet Passive Optical Network (EPON) is a fiber-optic access technology used to deliver high-speed internet, voice, and video services from a service provider to multiple users. It is based on Ethernet standards and uses a point-to-multipoint architecture.';
+
+    function applyQueryParams() {
+      const params = new URLSearchParams(window.location.search);
+      const presetText = params.get('text');
+      const presetInstruction = params.get('instruction');
+      const presetMaxTokens = params.get('max_tokens');
+      const presetTemperature = params.get('temperature');
+      const presetTopP = params.get('top_p');
+      const demo = params.get('demo') === '1';
+
+      if (presetText) inputText.value = presetText;
+      if (presetInstruction) instruction.value = presetInstruction;
+      if (presetMaxTokens) maxTokens.value = presetMaxTokens;
+      if (presetTemperature) temperature.value = presetTemperature;
+      if (presetTopP) topP.value = presetTopP;
+
+      if (demo && !presetText) {
+        inputText.value = demoSample;
+      }
+
+      return demo || params.get('autorun') === '1';
+    }
 
     async function rewrite() {
       const text = inputText.value.trim();
@@ -478,6 +501,12 @@
         status.className = 'status ok';
       });
     });
+
+    if (applyQueryParams()) {
+      window.addEventListener('load', () => {
+        rewrite();
+      });
+    }
   </script>
 </body>
 </html>

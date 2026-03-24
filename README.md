@@ -73,6 +73,19 @@ uvicorn app:app --reload
 
 Use [`frontend/rewrite_frontend.html`](frontend/rewrite_frontend.html) to test the paraphrasing flow.
 
+## 🖼️ Demo
+
+Below is a screenshot of the working frontend running locally with the rewrite flow active.
+
+![Frontend demo](examples/images/frontend-demo.png)
+
+The interface lets you:
+
+- paste an academic or technical paragraph
+- apply your fine-tuned rewrite style
+- adjust generation settings
+- compare the original text with the rewritten result in one view
+
 ## 📚 Documentation
 
 - [`docs/01-overview.md`](docs/01-overview.md) — what you are building and why
