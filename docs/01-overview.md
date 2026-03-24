@@ -25,11 +25,11 @@ This tutorial is built around that use case.
 
 ## 🧱 Main Components
 
-- [`app.py`](/Users/andrewtannyliem/Documents/qwen-lora/app.py) — FastAPI wrapper around `mlx_lm.generate`
-- [`frontend/rewrite_frontend.html`](/Users/andrewtannyliem/Documents/qwen-lora/frontend/rewrite_frontend.html) — local browser playground
-- [`data/train.jsonl`](/Users/andrewtannyliem/Documents/qwen-lora/data/train.jsonl) — training split
-- [`data/valid.jsonl`](/Users/andrewtannyliem/Documents/qwen-lora/data/valid.jsonl) — validation split
-- [`data/test.jsonl`](/Users/andrewtannyliem/Documents/qwen-lora/data/test.jsonl) — test split
+- [`app.py`](../app.py) — FastAPI wrapper around `mlx_lm.generate`
+- [`frontend/rewrite_frontend.html`](../frontend/rewrite_frontend.html) — local browser playground
+- [`data/train.jsonl`](../data/train.jsonl) — training split
+- [`data/valid.jsonl`](../data/valid.jsonl) — validation split
+- [`data/test.jsonl`](../data/test.jsonl) — test split
 
 ## 🔄 Workflow at a Glance
 

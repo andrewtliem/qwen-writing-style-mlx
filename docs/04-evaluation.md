@@ -23,10 +23,10 @@ Use the same prompts for both. Otherwise, the comparison is not useful.
 
 ## ✅ Practical Evaluation Flow
 
-1. Take held-out inputs from [`data/test.jsonl`](/Users/andrewtannyliem/Documents/qwen-lora/data/test.jsonl).
+1. Take held-out inputs from [`data/test.jsonl`](../data/test.jsonl).
 2. Generate outputs with the base model only.
 3. Generate outputs again with the adapter enabled.
-4. Record the results in [`examples/base_vs_finetuned.md`](/Users/andrewtannyliem/Documents/qwen-lora/examples/base_vs_finetuned.md).
+4. Record the results in [`examples/base_vs_finetuned.md`](../examples/base_vs_finetuned.md).
 
 ## 🧠 Main Lesson
 

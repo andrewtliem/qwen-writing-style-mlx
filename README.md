@@ -71,15 +71,15 @@ uvicorn app:app --reload
 
 ### 3. Open the browser UI
 
-Use [`frontend/rewrite_frontend.html`](/Users/andrewtannyliem/Documents/qwen-lora/frontend/rewrite_frontend.html) to test the paraphrasing flow.
+Use [`frontend/rewrite_frontend.html`](frontend/rewrite_frontend.html) to test the paraphrasing flow.
 
 ## 📚 Documentation
 
-- [`docs/01-overview.md`](/Users/andrewtannyliem/Documents/qwen-lora/docs/01-overview.md) — what you are building and why
-- [`docs/02-dataset-design.md`](/Users/andrewtannyliem/Documents/qwen-lora/docs/02-dataset-design.md) — how to design rewrite-style training data
-- [`docs/03-training.md`](/Users/andrewtannyliem/Documents/qwen-lora/docs/03-training.md) — MLX LoRA training workflow
-- [`docs/04-evaluation.md`](/Users/andrewtannyliem/Documents/qwen-lora/docs/04-evaluation.md) — how to compare base vs fine-tuned outputs
-- [`docs/05-production.md`](/Users/andrewtannyliem/Documents/qwen-lora/docs/05-production.md) — how to serve the model locally
+- [`docs/01-overview.md`](docs/01-overview.md) — what you are building and why
+- [`docs/02-dataset-design.md`](docs/02-dataset-design.md) — how to design rewrite-style training data
+- [`docs/03-training.md`](docs/03-training.md) — MLX LoRA training workflow
+- [`docs/04-evaluation.md`](docs/04-evaluation.md) — how to compare base vs fine-tuned outputs
+- [`docs/05-production.md`](docs/05-production.md) — how to serve the model locally
 
 ## 💡 Core Idea
 

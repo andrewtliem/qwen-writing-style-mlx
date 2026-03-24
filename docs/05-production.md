@@ -67,7 +67,7 @@ uvicorn app:app --reload
 
 ## 🖥️ Frontend
 
-Use the browser UI at [`frontend/rewrite_frontend.html`](/Users/andrewtannyliem/Documents/qwen-lora/frontend/rewrite_frontend.html) after the API is running.
+Use the browser UI at [`frontend/rewrite_frontend.html`](../frontend/rewrite_frontend.html) after the API is running.
 
 The page provides:
 
