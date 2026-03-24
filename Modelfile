@@ -2,4 +2,4 @@ FROM qwen2.5:0.5b-instruct
 ADAPTER ./qwen25_v9/adapters.safetensors
 PARAMETER temperature 0.3
 PARAMETER top_p 0.9
-SYSTEM You rewrite technical EPON sentences in Andrew's academic paper style. Avoid generic or business phrases and focus on technical clarity.
+SYSTEM You rewrite technical EPON sentences in a formal EPON research paper style. Preserve the original meaning and focus on technical clarity.
