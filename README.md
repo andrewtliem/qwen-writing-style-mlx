@@ -86,6 +86,28 @@ The interface lets you:
 - adjust generation settings
 - compare the original text with the rewritten result in one view
 
+## 🔬 Base Model vs Fine-Tuned Model
+
+One of the easiest ways to understand the value of the project is to compare the outputs directly.
+
+### Base model impression
+
+![Base model GPTZero result](examples/images/base-model.png)
+
+- more obviously AI-sounding phrasing
+- more explanatory and generic flow
+- screenshot example was flagged as `AI 100%`
+
+### Fine-tuned model impression
+
+![Fine-tuned model GPTZero result](examples/images/fine-tuned-model.png)
+
+- more controlled and academic sentence style
+- closer to edited technical prose
+- screenshot example was labeled `Human 99%`
+
+For the full side-by-side write-up, see [`examples/base_vs_finetuned.md`](examples/base_vs_finetuned.md).
+
 ## 📚 Documentation
 
 - [`docs/01-overview.md`](docs/01-overview.md) — what you are building and why
